@@ -64,7 +64,7 @@ const UserList = ({ location, notifier }) => {
               {usersListData[i].first_name} {usersListData[i].last_name}
             </span>
             <span
-              className="right delete-icon"
+              className="right cursor-pointer"
               title="Deletar usuário"
               onClick={() => openModal(usersListData[i].id)}
             >

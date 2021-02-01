@@ -22,10 +22,6 @@ label {
   transform: translateY(-140%);
 }
 
-.delete-icon {
-  @extend .cursor-pointer;
-}
-
 .pagination {
   text-align: right;
 }
@@ -111,11 +107,3 @@ label {
   margin-bottom: 0;
   margin-top: 0;
 }
-
-// .show {
-//   display: none;
-// }
-
-// .hide {
-//   display: none;
-// }
