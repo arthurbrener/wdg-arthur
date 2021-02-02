@@ -22,10 +22,9 @@ export const getUserList = (page = 1, store) => {
 };
 
 export const getUserById = (id, store) => {
-  return axios.get(
-    `https://reqres.in/api/users/${id}?delay=2`,
-    tokenHeader(store)
-  );
+  return axios
+    .get(`https://reqres.in/api/users/${id}?delay=2`, tokenHeader(store))
+    .catch((error) => error.response.status);
 };
 
 export const updateUserById = (userData, store) => {

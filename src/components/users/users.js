@@ -20,7 +20,7 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const UserList = ({ location, notifier }) => {
+const UserList = ({ location, notifier, loading }) => {
   const history = useHistory(),
     store = useStore(),
     [usersList, setUsersList] = useState([]),
@@ -33,11 +33,14 @@ const UserList = ({ location, notifier }) => {
   useEffect(() => {
     history.push(`/users?page=${currentPage}`);
     const loadUsers = async () => {
+      loading(true);
       const response = await getUserList(currentPage, store);
       setUsersList(response.data);
+      loading(false);
     };
 
     loadUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store, currentPage, history]);
 
   const editUser = (id) => {

@@ -12,10 +12,10 @@ const NotFound = () => {
         <span
           className="text-link"
           onClick={() => {
-            return history.push("/");
+            return history.push("/users");
           }}
         >
-          Retornar à tela de login.
+          Retornar à tela de usuários.
         </span>
       </div>
     </Row>

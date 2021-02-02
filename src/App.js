@@ -18,12 +18,18 @@ class App extends Component {
         window.location.pathname
       ),
       notify: { message: null, key: 0 },
+      loading: false,
     };
   }
 
   render() {
     return (
       <div>
+        {this.state.loading ? (
+          <div class="loader">
+            <div class="loader-gif"></div>
+          </div>
+        ) : null}
         {this.state.notify.message ? (
           <FlashMessage duration={4000} key={this.state.notify.key}>
             <Notify message={this.state.notify.message} />
@@ -48,6 +54,11 @@ class App extends Component {
               path="/"
               render={() => (
                 <Login
+                  loading={(isLoading) => {
+                    this.setState({
+                      loading: isLoading,
+                    });
+                  }}
                   updateHeader={() => this.setState({ isLogged: true })}
                   notifier={(text) => {
                     this.setState({
@@ -65,6 +76,11 @@ class App extends Component {
               path="/users"
               render={() => (
                 <UserList
+                  loading={(isLoading) => {
+                    this.setState({
+                      loading: isLoading,
+                    });
+                  }}
                   location
                   notifier={(text) => {
                     this.setState({
@@ -81,6 +97,11 @@ class App extends Component {
               path="/users/:id(\d+)"
               render={(props) => (
                 <EditUser
+                  loading={(isLoading) => {
+                    this.setState({
+                      loading: isLoading,
+                    });
+                  }}
                   match={props.match}
                   notifier={(text) => {
                     this.setState({

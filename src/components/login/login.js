@@ -6,18 +6,20 @@ import { bindActionCreators } from "redux";
 import { loginAction } from "../../actions";
 import { login } from "../../api";
 
-const Login = (props) => {
+const Login = ({ updateHeader, loginAction, notifier, loading }) => {
   const history = useHistory(),
-    { updateHeader, loginAction, notifier } = props,
     [loginData, setLoginData] = useState({ email: "", password: "" });
 
   const submitLogin = async () => {
+    loading(true);
     const response = await login(loginData);
     if (response?.status === 200) {
       loginAction(response.data.token);
+      loading(false);
       history.push("/users");
       updateHeader();
     } else {
+      loading(false);
       notifier("Email e/ou senha incorretos.");
     }
   };

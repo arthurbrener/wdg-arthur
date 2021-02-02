@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Input, Button } from "react-materialize";
 import { useStore } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { getUserById, updateUserById } from "../../api";
 
-const EditUser = ({ match, notifier }) => {
-  const store = useStore(),
+const EditUser = ({ match, notifier, loading }) => {
+  const history = useHistory(),
+    store = useStore(),
     [user, setUser] = useState({ first_name: "", last_name: "", email: "" });
 
   useEffect(() => {
     const loadUser = async () => {
+      loading(true);
       const response = await getUserById(match.params.id, store);
-      setUser(response.data.data);
+      if (response === 404) {
+        history.push("/not-found");
+        loading(false);
+      } else {
+        setUser(response.data.data);
+        loading(false);
+      }
     };
 
     loadUser();
-  }, [store, match]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store, match.params.id]);
 
   const submitUpdate = async () => {
     await updateUserById(user, store);
