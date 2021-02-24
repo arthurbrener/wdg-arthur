@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Card, Button } from "react-materialize";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useStore } from "react-redux";
 import { getUserList, deleteUserById } from "../../api";
 import qS from "query-string";
@@ -20,8 +20,9 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const UserList = ({ location, notifier, loading }) => {
+const UserList = ({ notifier, loading }) => {
   const history = useHistory(),
+    location = useLocation(),
     store = useStore(),
     [usersList, setUsersList] = useState([]),
     [currentPage, setCurrentPage] = useState(
